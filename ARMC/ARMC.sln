@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARMC", "ARMC.csproj", "{D9D921A7-F5BD-4E8F-B592-99E7C01A4CC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9D921A7-F5BD-4E8F-B592-99E7C01A4CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9D921A7-F5BD-4E8F-B592-99E7C01A4CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9D921A7-F5BD-4E8F-B592-99E7C01A4CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9D921A7-F5BD-4E8F-B592-99E7C01A4CC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

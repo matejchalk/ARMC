@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automata", "Automata.csproj", "{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}.Debug|x64.ActiveCfg = Debug|x64
+		{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}.Debug|x64.Build.0 = Debug|x64
+		{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}.Debug|x86.ActiveCfg = Debug|x86
+		{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}.Debug|x86.Build.0 = Debug|x86
+		{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}.Release|x64.ActiveCfg = Release|x64
+		{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}.Release|x64.Build.0 = Release|x64
+		{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}.Release|x86.ActiveCfg = Release|x86
+		{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+EndGlobal
