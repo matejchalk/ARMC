@@ -678,7 +678,7 @@ namespace ARMC
 
 		public override string ToString()
 		{
-            string repr = "SSA: q0=" + InitialState.ToString() + " F=" + FinalStates.ToString() + " ";
+            string repr = "SSA: q0=" + InitialState.ToString() + " F=" + new Set<int>(FinalStates).ToString() + " ";
             foreach (Move<Predicate<SYMBOL>> move in Moves)
                 repr += "; " + move.SourceState + "(" + (move.IsEpsilon ? "" : move.Label.ToString()) +
                         ") -> " + move.TargetState;

@@ -161,15 +161,16 @@ namespace ARMC
             this.stopwatch = new Stopwatch();
             this.loops = 0;
 
-            if (printAutomata) {
-                if (outputDir != "") {  // clear output directory
-                    DirectoryInfo dirInfo = Directory.CreateDirectory(outputDir);
-                    foreach (FileInfo fi in dirInfo.EnumerateFiles())
-                        fi.Delete();
-                    foreach (DirectoryInfo di in dirInfo.EnumerateDirectories())
-                        di.Delete(true);
-                }
+            if (outputDir != "") {
+                /* clear output directory */
+                DirectoryInfo dirInfo = Directory.CreateDirectory(outputDir);
+                foreach (FileInfo fi in dirInfo.EnumerateFiles())
+                    fi.Delete();
+                foreach (DirectoryInfo di in dirInfo.EnumerateDirectories())
+                    di.Delete(true);
+            }
 
+            if (printAutomata) {
                 /* print input automata and configuration */
                 string dir = Path.Combine(outputDir, "armc-input");
                 Directory.CreateDirectory(dir);

@@ -94,7 +94,7 @@ namespace ARMC
 			}
 
             if (parse == null)
-                throw PrinterException.UnknownFormat(type);
+                throw ParserException.UnknownFormat(type);
 
             parse(
                 input, type, 
@@ -127,7 +127,7 @@ namespace ARMC
 			Match match = fileRegex.Match(input);
 
             if (!match.Success)
-                throw FSAPrinterException.InvalidFormat(type);
+                throw TimbukParserException.InvalidFormat(type);
 
 			alphabet = new Set<SYMBOL>();
             SYMBOL startSymbol = default(SYMBOL);  // meaningless assignment
@@ -140,21 +140,21 @@ namespace ARMC
 				switch (arity) {
                 case 0:
                     if (foundStartSymbol)
-                        throw FSAPrinterException.DuplicateLabelDecl(type);
+                        throw TimbukParserException.DuplicateLabelDecl(type);
                     startSymbol = symbol;
                     foundStartSymbol = true;
 					break;
 				case 1:
 					if (alphabet.Contains(symbol))
-                        throw FSAPrinterException.DuplicateLabelDecl(type);
+                        throw TimbukParserException.DuplicateLabelDecl(type);
 					alphabet.Add(symbol);
 					break;
                 default:
-                    throw FSAPrinterException.TreeAutomataNotSupported(type);
+                    throw TimbukParserException.TreeAutomataNotSupported(type);
 				}
 			}
             if (!foundStartSymbol)
-                throw FSAPrinterException.NoStartSymbol(type);
+                throw TimbukParserException.NoStartSymbol(type);
 
 			name = match.Groups[2].Value;
 
@@ -167,7 +167,7 @@ namespace ARMC
 			foreach (Capture capture in match.Groups[3].Captures) {
 				string stateName = capture.Value;
                 if (stateDict.ContainsKey(stateName))
-                    throw FSAPrinterException.DuplicateState(type);
+                    throw TimbukParserException.DuplicateState(type);
 				int state = id++;
 				stateDict[stateName] = state;
 				states.Add(state);
@@ -177,9 +177,9 @@ namespace ARMC
 				string stateName = capture.Value;
 				int state;
                 if (!stateDict.TryGetValue(stateName, out state))
-                    throw FSAPrinterException.UnknownFinalState(type);
+                    throw TimbukParserException.UnknownFinalState(type);
                 if (finalStates.Contains(state))
-                    throw FSAPrinterException.DuplicateFinalState(type);
+                    throw TimbukParserException.DuplicateFinalState(type);
 				finalStates.Add(state);
 			}
 
@@ -211,7 +211,7 @@ namespace ARMC
                         var inputPred = (Predicate<SYMBOL>)parsePredicate(parts[0].Substring(1));
                         var outputPred = (Predicate<SYMBOL>)parsePredicate(parts[1].Substring(1));
                         if (inputPred == null ? outputPred != null : !inputPred.Equals(outputPred))
-                            throw FSAPrinterException.InvalidIdentityLabel(type);
+                            throw TimbukParserException.InvalidIdentityLabel(type);
                         return new Label<SYMBOL>(inputPred);
                     }
                     return new Label<SYMBOL>(
@@ -219,7 +219,7 @@ namespace ARMC
                         (Predicate<SYMBOL>)parsePredicate(parts[1])
                     );
                 default:
-                    throw FSAPrinterException.InvalidTransducerLabel(type);
+                    throw TimbukParserException.InvalidTransducerLabel(type);
                 }
             };
 
@@ -235,14 +235,14 @@ namespace ARMC
 				Match transMatch = transitionRegex.Match(capture.Value);
 
                 if (!transMatch.Success)
-                    throw FSAPrinterException.UnknownSymbol(type);
+                    throw TimbukParserException.UnknownSymbol(type);
 
 				if (transMatch.Groups[2].Value == "") {
                     if (!StringToSymbol(transMatch.Groups[1].Value).Equals(startSymbol))
-                        throw FSAPrinterException.UnknownSymbol(type);
+                        throw TimbukParserException.UnknownSymbol(type);
 
                     if (!stateDict.TryGetValue(transMatch.Groups[3].Value, out initialState))
-                        throw FSAPrinterException.UnknownState(type);
+                        throw TimbukParserException.UnknownState(type);
 
 					foundInitialState = true;
 					continue;
@@ -252,16 +252,16 @@ namespace ARMC
 				int sourceState, targetState;
 				if (!stateDict.TryGetValue(transMatch.Groups[2].Value, out sourceState) ||
                     !stateDict.TryGetValue(transMatch.Groups[3].Value, out targetState))
-                    throw FSAPrinterException.UnknownState(type);
+                    throw TimbukParserException.UnknownState(type);
                 
                 if (label.Symbols > alphabet)
-                    throw FSAPrinterException.UnknownSymbol(type);
+                    throw TimbukParserException.UnknownSymbol(type);
 
 				moves.Add(new Move<ILabel<SYMBOL>>(sourceState, targetState, label));
 			}
 
             if (!foundInitialState)
-                throw FSAPrinterException.NoInitialState(type);
+                throw TimbukParserException.NoInitialState(type);
 
 			stateNames = new Dictionary<int,string>(stateDict.Count);
 			foreach (KeyValuePair<string,int> item in stateDict)

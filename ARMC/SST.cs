@@ -312,14 +312,6 @@ namespace ARMC
             var finalStates = new List<int>(taus.Sum(tau => tau.FinalStates.Count()));
             var moves = new List<Move<Label<SYMBOL>>>(taus.Length + taus.Sum(tau => tau.Moves.Count()));
             var alphabet = taus.Select(tau => tau.Alphabet).Aggregate(Set<SYMBOL>.Union);
-            Dictionary<int,string> stateNames = null;
-
-            if (taus
-                .Where(tau => tau.StateNames != null)
-                .Select(tau => new Set<string>(tau.StateNames.Values))
-                .Aggregate(Set<string>.Intersection)
-                .IsEmpty)
-                stateNames = new Dictionary<int,string>();
 
             int offset = 0;
             Func<int,int> translate = state => offset + 1 + state;
@@ -329,14 +321,10 @@ namespace ARMC
                 moves.AddRange(tau.Moves.Select(move => new Move<Label<SYMBOL>>(
                     translate(move.SourceState), translate(move.TargetState), move.Label
                 )));
-                if (stateNames != null && tau.StateNames != null) {
-                    foreach (var pair in tau.StateNames)
-                        stateNames[translate(pair.Key)] = pair.Value;
-                }
                 offset += tau.States.Count();
             }
 
-            return new SST<SYMBOL>(0, finalStates, moves, alphabet, null, stateNames);
+            return new SST<SYMBOL>(0, finalStates, moves, alphabet);
         }
 
         /// <summary>
@@ -473,7 +461,7 @@ namespace ARMC
 
         public override string ToString()
         {
-            string repr = "SST: q0=" + InitialState.ToString() + " F=" + FinalStates.ToString() + " ";
+            string repr = "SST: q0=" + InitialState.ToString() + " F=" + new Set<int>(FinalStates).ToString() + " ";
             foreach (Move<Label<SYMBOL>> move in Moves)
                 repr += "; " + move.SourceState + "(" + (move.IsEpsilon ? "" : move.Label.ToString()) +
                         ") -> " + move.TargetState;

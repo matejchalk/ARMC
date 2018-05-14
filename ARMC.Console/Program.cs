@@ -71,7 +71,7 @@ namespace ARMC
                     armc.PrintCounterexample(counterexample, ceDir);
                     Console.WriteLine("Property does not hold (see {0}{1}).", ceDir, Path.DirectorySeparatorChar);
                 }
-            } catch (ARMCException exc) {
+            } catch (Exception exc) {
                 Console.Error.WriteLine("Error - {0}", exc.Message);
                 return 1;
             }
