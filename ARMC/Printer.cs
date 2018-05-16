@@ -234,6 +234,7 @@ namespace ARMC
 			file.WriteLine();
 		}
 
+        /* file format compatible with https://github.com/Miskaaa/symboliclib */
         private static void PrintAutomatonTimbuk(
             StreamWriter file, AutomatonType type, string name, Dictionary<int,string> stateNames,
             PredicateAlgebra<SYMBOL> algebra, List<int> states, List<SYMBOL> alphabet,
@@ -263,18 +264,19 @@ namespace ARMC
 
 			file.WriteLine(string.Format("Ops x:0 {0}", string.Join(" ", labelList)));
 			file.WriteLine();
-			file.WriteLine(string.Format("Automaton {0}", name ?? "M"));
+            file.WriteLine(string.Format("Automaton {0} @{1}", name ?? "M", type == AutomatonType.SSA ? "INFA" : "INT"));
             file.WriteLine(string.Format("States {0}", string.Join(" ", states.Select(state => stateNames[state]))));
             file.WriteLine(string.Format("Final States {0}", string.Join(" ", finalStates.Select(state => stateNames[state]))));
 			file.WriteLine("Transitions");
             file.WriteLine(string.Format("x() -> {0}", stateNames[initialState]));
             foreach (Move<ILabel<SYMBOL>> move in moves)
-				file.WriteLine(string.Format("{0}({1}) -> {2}",
+				file.WriteLine(string.Format("\"{0}\"({1}) -> {2}",
                     printILabel(move.Label), stateNames[move.SourceState], stateNames[move.TargetState]
 				));
 			file.WriteLine();
 		}
 
+        /* FSA format spec at http://www.let.rug.nl/~vannoord/Fsa/Manual/node5.html#anc1 */
         private static void PrintAutomatonFSA(
             StreamWriter file, AutomatonType type, string name, Dictionary<int,string> stateNames,
             PredicateAlgebra<SYMBOL> algebra, List<int> states, List<SYMBOL> alphabet,
@@ -349,7 +351,7 @@ namespace ARMC
             file.WriteLine();
         }
 
-        // write out prolog list line by line (making sure all but the last line are followed by a comma)
+        /* write out prolog list line by line (making sure all but the last line are followed by a comma) */
         private static void FSAWriteList<T>(StreamWriter file, IEnumerable<T> items, Func<T,string> stringify, bool addComma = true)
         {
             if (items.Count() == 0) {
@@ -363,6 +365,7 @@ namespace ARMC
             }
         }
 
+        /* format spec at http://web.eecs.umich.edu/~radev/NLP-fall2015/resources/fsm_archive/fsm.5.html */
         private static void PrintAutomatonFSM(
             StreamWriter file, AutomatonType type, string name, Dictionary<int,string> stateNames,
             PredicateAlgebra<SYMBOL> algebra, List<int> states, List<SYMBOL> alphabet,

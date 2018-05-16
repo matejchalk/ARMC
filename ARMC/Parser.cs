@@ -106,20 +106,22 @@ namespace ARMC
                 name = Path.GetFileNameWithoutExtension(fileName);
 		}
 
+        /* file format compatible with https://github.com/Miskaaa/symboliclib */
 		public static void ParseAutomatonTimbuk(
 			string input, AutomatonType type,
 			out int initialState, out Set<int> finalStates, out Set<Move<ILabel<SYMBOL>>> moves,
             out Set<SYMBOL> alphabet, out string name, out Dictionary<int,string> stateNames,
             string stateSymbolsFileName = null, string inputSymbolsFileName = null, string outputSymbolsFileName = null)
 		{
+            string namePattern = string.Format(@"(.*?)(?:  @{0})?", type == AutomatonType.SSA ? "INFA" : "INT");
 			string labelDeclPattern = @"[^:]+:\d+";
-			string labelListPattern = string.Format(@"(?:({0})\s+)*", labelDeclPattern);
+			string labelListPattern = string.Format(@"(?:({0})  )*", labelDeclPattern);
 			string stateListPattern = @"(?:(\w+)  )*";
 			string transitionPattern = @".*? \( (?:\w+(?: , \w+)*)? \) -> \w+";
 			string transitionListPattern = string.Format(@"(?:({0})  )*", transitionPattern);
 			string automatonPattern = string.Format(
-				@"Automaton  (.*?)  States  {0}Final States  {0}Transitions  {1}", 
-				stateListPattern, transitionListPattern
+                @"Automaton  {0}  States  {1}Final States  {1}Transitions  {2}",
+				namePattern, stateListPattern, transitionListPattern
 			);
 			string filePattern = string.Format(@"^Ops  {0}  {1} $", labelListPattern, automatonPattern);
 
@@ -187,7 +189,7 @@ namespace ARMC
                 if (predString == "")
                     return null;
 
-                var regex = new Regex(@"^(in|not_in)\{(.*)\}$");
+                var regex = new Regex(@"^""?(in|not_in)\{(.*)\}""?$");
                 Match predMatch = regex.Match(predString);
 
                 if (predMatch.Success) {
@@ -268,7 +270,7 @@ namespace ARMC
 				stateNames[item.Value] = item.Key;
 		}
 
-		// FSA format spec at http://www.let.rug.nl/~vannoord/Fsa/Manual/node5.html#anc1
+		/* FSA format spec at http://www.let.rug.nl/~vannoord/Fsa/Manual/node5.html#anc1 */
 		public static void ParseAutomatonFSA(
 			string input, AutomatonType type,
 			out int initialState, out Set<int> finalStates, out Set<Move<ILabel<SYMBOL>>> moves,
@@ -471,7 +473,7 @@ namespace ARMC
 			stateNames = null;
 		}
 
-        // format spec at http://web.eecs.umich.edu/~radev/NLP-fall2015/resources/fsm_archive/fsm.5.html
+        /* format spec at http://web.eecs.umich.edu/~radev/NLP-fall2015/resources/fsm_archive/fsm.5.html */
         public static void ParseAutomatonFSM(
             string input, AutomatonType type,
             out int initialState, out Set<int> finalStates, out Set<Move<ILabel<SYMBOL>>> moves,
