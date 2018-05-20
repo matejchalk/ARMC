@@ -1,0 +1,12 @@
+Ops x:0 1FF:1 1FT:1 1TF:1 1TT:1 2FF:1 2FT:1 2TF:1 2TT:1 3FF:1 3FT:1 3TF:1 3TT:1 4FF:1 4FT:1 4TF:1 4TT:1 5FF:1 5FT:1 5TF:1 5TT:1 6FF:1 6FT:1 6TF:1 6TT:1 7FF:1 7FT:1 7TF:1 7TT:1
+
+Automaton <i>&tau;</i><sub>7</sub>
+States 0 F
+Final States F
+Transitions
+x() -> 0
+@not_in{}/@not_in{}(0) -> 0
+in{7FF,7TF}/1FF(0) -> F
+in{7FT,7TT}/1FT(0) -> F
+@not_in{}/@not_in{}(F) -> F
+

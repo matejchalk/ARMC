@@ -1,0 +1,28 @@
+Ops x:0 1F:1 1T:1 2F:1 2T:1 3F:1 3T:1 4F:1 4T:1 5F:1 5T:1 6F:1 6T:1
+
+Automaton <i>&tau;</i>
+States 0 0x 0y 1 Fx Fy
+Final States Fx Fy
+Transitions
+x() -> 0
+/(0) -> 0x
+/(0) -> 0y
+@not_in{}/@not_in{}(0x) -> 0x
+/(0x) -> Fx
+in{1F,1T}/2F(0x) -> Fx
+in{3F,3T}/4T(0x) -> Fx
+in{6F,6T}/1F(0x) -> Fx
+@in{1T,2T,3T,4T,5T,6T}/@in{1T,2T,3T,4T,5T,6T}(0x) -> 1
+5F/6F(0x) -> Fy
+5T/6T(0x) -> Fy
+@not_in{}/@not_in{}(1) -> 1
+in{2F,4F}/1F(1) -> Fx
+in{2T,4T}/1T(1) -> Fx
+@in{1F,2F,3F,4F,5F,6F}/@in{1F,2F,3F,4F,5F,6F}(0y) -> 0y
+2F/3F(0y) -> Fx
+2T/3T(0y) -> Fx
+4F/5F(0y) -> Fx
+4T/5T(0y) -> Fx
+@not_in{}/@not_in{}(Fx) -> Fx
+@in{1F,2F,3F,4F,5F,6F}/@in{1F,2F,3F,4F,5F,6F}(Fy) -> Fy
+

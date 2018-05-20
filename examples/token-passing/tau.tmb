@@ -1,0 +1,16 @@
+Ops x:0 N:1 T:1
+
+Automaton &tau;
+States q_0 q_1 q_2 q_3 q_4
+Final States q_0 q_4
+Transitions
+x() -> q_0
+T/T(q_0) -> q_0
+N/N(q_0) -> q_0
+T/N(q_0) -> q_1
+N/N(q_1) -> q_2
+N/N(q_2) -> q_3
+N/T(q_3) -> q_4
+T/T(q_4) -> q_4
+N/N(q_4) -> q_4
+

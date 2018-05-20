@@ -1,0 +1,22 @@
+Ops x:0 1:1 2:1 3:1 4:1 5:1
+
+Automaton <i>&tau;</i>
+States q_0 q_1 q_2 q_3 q_4 q_5 q_6
+Final States q_4 q_5 q_6
+Transitions
+x() -> q_0
+/(q_0) -> q_1
+/(q_0) -> q_3
+/(q_0) -> q_4
+@not_in{}/@not_in{}(q_1) -> q_1
+1/2(q_1) -> q_4
+3/4(q_1) -> q_4
+5/1(q_1) -> q_4
+2/(q_1) -> q_2
+@not_in{}/@not_in{}(q_2) -> q_2
+/3(q_2) -> q_5
+@not_in{}/@not_in{}(q_4) -> q_4
+1/1(q_3) -> q_3
+4/5(q_3) -> q_6
+@not_in{2,3}/@not_in{2,3}(q_6) -> q_6
+

@@ -1,0 +1,9 @@
+Ops x:0 1F:1 1T:1 2F:1 2T:1 3F:1 3T:1 4F:1 4T:1 5F:1 5T:1 6F:1 6T:1
+
+Automaton <i>Init</i>
+States q
+Final States q
+Transitions
+x() -> q
+1F(q) -> q
+

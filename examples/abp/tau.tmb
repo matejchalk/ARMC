@@ -1,0 +1,81 @@
+Ops x:0 s0:1 s1:1 s2:1 s3:1 r0:1 r1:1 r2:1 r3:1 M0:1 M1:1 A0:1 A1:1 S:1 R:1 #:1 |:1 $:1
+
+Automaton <i>&tau;</i>
+States s r r_S rpM_0 rpM_1 rmA_0 rmA_1 L_S LpM_0 LpM_1 LmA_0 LmA_1 L LmM_0 LmM_1 LpA_0 LpA_1 L_R C_S C CmA_0 CmA_1 CpA_0 CpA_1 C_R pM_0 pM_1 M mM_0 mM_1 R_S R R_R mA_0 mA_1 A pA_0 pA_1 pS pR SR F
+Final States SR F
+Transitions
+x() -> s
+s0/s1(s) -> r_S
+s2/s3(s) -> r_S
+@in{r0,r1,r2,r3}/@in{r0,r1,r2,r3}(r_S) -> L_S
+#/#(L_S) -> C_S
+@in{M0,M1}/@in{M0,M1}(C_S) -> C_S
+|/|(C_S) -> R_S
+@in{A0,A1}/@in{A0,A1}(R_S) -> R_S
+$/$(R_S) -> pS
+@in{S,R}/@in{S,R}(pS) -> pS
+/S(pS) -> F
+s1/s1(s) -> rpM_0
+@in{r0,r1,r2,r3}/@in{r0,r1,r2,r3}(rpM_0) -> LpM_0
+#/#(LpM_0) -> pM_0
+@in{M0,M1}/@in{M0,M1}(pM_0) -> pM_0
+/M0(pM_0) -> C
+s3/s3(s) -> rpM_1
+@in{r0,r1,r2,r3}/@in{r0,r1,r2,r3}(rpM_1) -> LpM_1
+#/#(LpM_1) -> pM_1
+@in{M0,M1}/@in{M0,M1}(pM_1) -> pM_1
+/M1(pM_1) -> C
+|/|(C) -> A
+s1/s2(s) -> rmA_0
+s3/s3(s) -> rmA_0
+@in{r0,r1,r2,r3}/@in{r0,r1,r2,r3}(rmA_0) -> LmA_0
+#/#(LmA_0) -> CmA_0
+@in{M0,M1}/@in{M0,M1}(CmA_0) -> CmA_0
+|/|(CmA_0) -> mA_0
+A0/(mA_0) -> A
+s1/s1(s) -> rmA_1
+s3/s0(s) -> rmA_1
+@in{r0,r1,r2,r3}/@in{r0,r1,r2,r3}(rmA_1) -> LmA_1
+#/#(LmA_1) -> CmA_1
+@in{M0,M1}/@in{M0,M1}(CmA_1) -> CmA_1
+|/|(CmA_1) -> mA_1
+A1/(mA_1) -> A
+@in{s0,s1,s2,s3}/@in{s0,s1,s2,s3}(s) -> r
+@in{r0,r1,r2,r3}/@in{r0,r1,r2,r3}(r) -> L
+#/#(L) -> M
+r0/r0(r) -> LmM_1
+r2/r3(r) -> LmM_1
+#/#(LmM_1) -> mM_1
+M1/(mM_1) -> M
+r0/r1(r) -> LmM_0
+r2/r2(r) -> LmM_0
+#/#(LmM_0) -> mM_0
+M0/(mM_0) -> M
+@in{M0,M1}/@in{M0,M1}(M) -> M
+|/|(M) -> A
+@in{A0,A1}/@in{A0,A1}(A) -> A
+$/$(A) -> SR
+r0/r0(r) -> LpA_1
+#/#(LpA_1) -> CpA_1
+@in{M0,M1}/@in{M0,M1}(CpA_1) -> CpA_1
+|/|(CpA_1) -> pA_1
+@in{A0,A1}/@in{A0,A1}(pA_1) -> pA_1
+/A1(pA_1) -> R
+r2/r2(r) -> LpA_0
+#/#(LpA_0) -> CpA_0
+@in{M0,M1}/@in{M0,M1}(CpA_0) -> CpA_0
+|/|(CpA_0) -> pA_0
+@in{A0,A1}/@in{A0,A1}(pA_0) -> pA_0
+/A0(pA_0) -> R
+$/$(R) -> SR
+@in{S,R}/@in{S,R}(SR) -> SR
+r1/r2(r) -> L_R
+r3/r0(r) -> L_R
+#/#(L_R) -> C_R
+@in{M0,M1}/@in{M0,M1}(C_R) -> C_R
+|/|(C_R) -> R_R
+@in{A0,A1}/@in{A0,A1}(R_R) -> R_R
+$/$(R_R) -> pR
+@in{S,R}/@in{S,R}(pR) -> pR
+/R(pR) -> F
+

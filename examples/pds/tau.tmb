@@ -1,0 +1,51 @@
+Ops x:0 a0:1 a1:1 a2:1 m0:1 m1:1 m2:1 m3:1 m4:1 m5:1 m6:1 m7:1 m8:1 m9:1 s0:1 s1:1 s2:1 s3:1 s4:1 s5:1 |:1 D:1 R:1 U:1
+
+Automaton <i>&tau;</i>
+States 0 S F_O a_2 s_4 m_3 m_6 m_8 S_U O_U S_D O_D S_R O_R F
+Final States F_O F
+Transitions
+x() -> 0
+/(0) -> S
+@in{a0,a1,a2,m0,m1,m2,m3,m4,m5,m6,m7,m8,m9,s0,s1,s2,s3,s4,s5}/@in{a0,a1,a2,m0,m1,m2,m3,m4,m5,m6,m7,m8,m9,s0,s1,s2,s3,s4,s5}(S) -> S
+|/|(S) -> F_O
+@in{U,D,R}/@in{U,D,R}(F_O) -> F_O
+a0/a2(0) -> S
+a1/(0) -> S
+s0/s3(0) -> S
+s3/(0) -> S
+s0/s2(0) -> S
+s1/(0) -> S
+m0/m2(0) -> S
+m2/m3(0) -> S
+m5/m6(0) -> S
+m5/m1(0) -> S
+m1/(0) -> S
+m2/m7(0) -> S
+/s0(0) -> a_2
+/m0(0) -> s_4
+/s0(0) -> m_3
+/m0(0) -> m_6
+/m0(0) -> m_8
+a2/a1(a_2) -> S
+s4/s5(s_4) -> S
+m3/m4(m_3) -> S
+m6/m1(m_6) -> S
+m8/m9(m_8) -> S
+s2/s4(0) -> S_U
+m7/m8(0) -> S_U
+s5/s1(0) -> S_D
+m9/m1(0) -> S_D
+m4/m5(0) -> S_R
+@in{a0,a1,a2,m0,m1,m2,m3,m4,m5,m6,m7,m8,m9,s0,s1,s2,s3,s4,s5}/@in{a0,a1,a2,m0,m1,m2,m3,m4,m5,m6,m7,m8,m9,s0,s1,s2,s3,s4,s5}(S_U) -> S_U
+@in{a0,a1,a2,m0,m1,m2,m3,m4,m5,m6,m7,m8,m9,s0,s1,s2,s3,s4,s5}/@in{a0,a1,a2,m0,m1,m2,m3,m4,m5,m6,m7,m8,m9,s0,s1,s2,s3,s4,s5}(S_D) -> S_D
+@in{a0,a1,a2,m0,m1,m2,m3,m4,m5,m6,m7,m8,m9,s0,s1,s2,s3,s4,s5}/@in{a0,a1,a2,m0,m1,m2,m3,m4,m5,m6,m7,m8,m9,s0,s1,s2,s3,s4,s5}(S_R) -> S_R
+|/|(S_U) -> O_U
+|/|(S_D) -> O_D
+|/|(S_R) -> O_R
+@in{U,D,R}/@in{U,D,R}(O_U) -> O_U
+@in{U,D,R}/@in{U,D,R}(O_D) -> O_D
+@in{U,D,R}/@in{U,D,R}(O_R) -> O_R
+/U(O_U) -> F
+/D(O_D) -> F
+/R(O_R) -> F
+

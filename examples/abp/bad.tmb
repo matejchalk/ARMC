@@ -1,0 +1,20 @@
+Ops x:0 s0:1 s1:1 s2:1 s3:1 r0:1 r1:1 r2:1 r3:1 M0:1 M1:1 A0:1 A1:1 S:1 R:1 #:1 |:1 $:1
+
+Automaton <i>Bad</i>
+States q_0 q_1 q_2 q_3 q_4 q_5 q_6 q_F
+Final States q_F
+Transitions
+x() -> q_0
+in{s0,s1,s2,s3}(q_0) -> q_1
+in{r0,r1,r2,r3}(q_1) -> q_2
+#(q_2) -> q_3
+in{M0,M1}(q_3) -> q_3
+|(q_3) -> q_4
+in{A0,A1}(q_4) -> q_4
+$(q_4) -> q_5
+S(q_5) -> q_6
+R(q_6) -> q_5
+R(q_5) -> q_F
+S(q_6) -> q_F
+in{S,R}(q_F) -> q_F
+

@@ -1,0 +1,11 @@
+Ops x:0 10F:1 10T:1 11F:1 11T:1 12F:1 12T:1 20F:1 20T:1 21F:1 21T:1 22F:1 22T:1 30F:1 30T:1 31F:1 31T:1 32F:1 32T:1 40F:1 40T:1 41F:1 41T:1 42F:1 42T:1 50F:1 50T:1 51F:1 51T:1 52F:1 52T:1 60F:1 60T:1 61F:1 61T:1 62F:1 62T:1 70F:1 70T:1 71F:1 71T:1 72F:1 72T:1
+
+Automaton <i>Init</i>
+States q_0 q_F
+Final States q_F
+Transitions
+x() -> q_0
+10F(q_0) -> q_0
+10T(q_0) -> q_F
+10F(q_F) -> q_F
+

@@ -1,0 +1,13 @@
+Ops x:0 1F:1 1T:1 2F:1 2T:1 3F:1 3T:1 4F:1 4T:1 5F:1 5T:1 6F:1 6T:1
+
+Automaton <i>Bad</i>
+States q_0 q_1 q_2
+Final States q_2
+Transitions
+x() -> q_0
+not_in{}(q_0) -> q_0
+in{6F,6T}(q_0) -> q_1
+not_in{}(q_1) -> q_1
+in{6F,6T}(q_1) -> q_2
+not_in{}(q_2) -> q_2
+

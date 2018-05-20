@@ -1,0 +1,13 @@
+Ops x:0 s0:1 s1:1 s2:1 s3:1 r0:1 r1:1 r2:1 r3:1 M0:1 M1:1 A0:1 A1:1 S:1 R:1 #:1 |:1 $:1
+
+Automaton <i>Init</i>
+States q_0 q_1 q_2 q_3 q_4 q_5
+Final States q_5
+Transitions
+x() -> q_0
+s0(q_0) -> q_1
+r0(q_1) -> q_2
+#(q_2) -> q_3
+|(q_3) -> q_4
+$(q_4) -> q_5
+
