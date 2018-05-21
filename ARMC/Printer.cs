@@ -374,54 +374,64 @@ namespace ARMC
         {
             // map symbols to numeric IDs
             var symbolDict = new Dictionary<SYMBOL,int>(alphabet.Count);
-            int id = 0;
+            int id = 1;  // 0 reserved for epsilon
             foreach (SYMBOL symbol in alphabet)
                 symbolDict[symbol] = id++;
 
             // print state/symbol as number if corresponding symbols file unspecified,
             // otherwise print as string and map it to number in symbols file
 
-            Action<Move<ILabel<SYMBOL>>,bool> printPredicateMove = (move, symbolFile) => {
+            Func<int,string> state2str = state => (stateSymbolsFileName == null) ? state.ToString() : stateNames[state];
+            Func<SYMBOL,string> input2str = symbol => (inputSymbolsFileName == null) ? symbolDict[symbol].ToString() : symbol.ToString();
+            Func<SYMBOL,string> output2str = symbol => (outputSymbolsFileName == null) ? symbolDict[symbol].ToString() : symbol.ToString();
+            Action<Move<ILabel<SYMBOL>>> printPredicateMove = move => {
                 int sourceState = move.SourceState;
                 var predicate = (Predicate<SYMBOL>)move.Label;
                 int targetState = move.TargetState;
                 if (predicate == null) {
-                    file.WriteLine("{0} {1} 0",
-                        (stateSymbolsFileName == null) ? sourceState.ToString() : stateNames[sourceState],
-                        (stateSymbolsFileName == null) ? targetState.ToString() : stateNames[targetState]);
+                    file.WriteLine("{0} {1} 0", state2str(sourceState), state2str(targetState));
                 } else {
                     foreach (SYMBOL symbol in algebra.InclusiveSet(predicate))
-                        file.WriteLine("{0} {1} {2}",
-                            (stateSymbolsFileName == null) ? sourceState.ToString() : stateNames[sourceState],
-                            (stateSymbolsFileName == null) ? targetState.ToString() : stateNames[targetState],
-                            symbolFile ? symbol.ToString() : symbolDict[symbol].ToString());
+                        file.WriteLine("{0} {1} {2}", state2str(sourceState), state2str(targetState), input2str(symbol));
                 }
             };
-            Action<Move<ILabel<SYMBOL>>> printInputPredicateMove = (move => printPredicateMove(move, (inputSymbolsFileName != null)));
             Action<Move<ILabel<SYMBOL>>> printLabelMove = move => {
                 int sourceState = move.SourceState;
                 var label = (Label<SYMBOL>)move.Label;
                 int targetState = move.TargetState;
                 if (label.IsIdentity) {
-                    foreach (SYMBOL symbol in algebra.InclusiveSet(label.Input))
-                        file.WriteLine("{0} {1} {2} {3}",
-                            (stateSymbolsFileName == null) ? sourceState.ToString() : stateNames[sourceState],
-                            (stateSymbolsFileName == null) ? targetState.ToString() : stateNames[targetState],
-                            (inputSymbolsFileName == null) ? symbolDict[symbol].ToString() : symbol.ToString(),
-                            (outputSymbolsFileName == null) ? symbolDict[symbol].ToString() : symbol.ToString());
-                } else {
-                    // FIXME: epsilon
-                    foreach (SYMBOL input in algebra.InclusiveSet(label.Input))
-                        foreach (SYMBOL output in algebra.InclusiveSet(label.Output))
+                    if (label.Input == null) {
+                        file.WriteLine("{0} {1} 0 0", state2str(sourceState), state2str(targetState));
+                    } else {
+                        foreach (SYMBOL symbol in algebra.InclusiveSet(label.Input)) {
                             file.WriteLine("{0} {1} {2} {3}",
-                                (stateSymbolsFileName == null) ? sourceState.ToString() : stateNames[sourceState],
-                                (stateSymbolsFileName == null) ? targetState.ToString() : stateNames[targetState],
-                                (inputSymbolsFileName == null) ? symbolDict[input].ToString() : input.ToString(),
-                                (outputSymbolsFileName == null) ? symbolDict[output].ToString() : output.ToString());
+                                state2str(sourceState), state2str(targetState), input2str(symbol), output2str(symbol));
+                        }
+                    }
+                } else {
+                    if (label.Input == null) {
+                        if (label.Output == null) {
+                            file.WriteLine("{0} {1} 0 0", state2str(sourceState), state2str(targetState));
+                        } else {
+                            foreach (SYMBOL output in algebra.InclusiveSet(label.Output))
+                                file.WriteLine("{0} {1} 0 {2}", state2str(sourceState), state2str(targetState), output2str(output));
+                        }
+                    } else {
+                        foreach (SYMBOL input in algebra.InclusiveSet(label.Input)) {
+                            if (label.Output == null) {
+                                file.WriteLine("{0} {1} {2} 0", state2str(sourceState), state2str(targetState), input2str(input));
+                            } else {
+                                foreach (SYMBOL output in algebra.InclusiveSet(label.Output)) {
+                                    file.WriteLine("{0} {1} {2} {3}",
+                                        state2str(sourceState), state2str(targetState), input2str(input), output2str(output));
+                                }
+                            }
+                        }
+                    }
                 }
             };
             Action<Move<ILabel<SYMBOL>>> printMove = (type == AutomatonType.SSA) ?
-                printInputPredicateMove : printLabelMove;
+                printPredicateMove : printLabelMove;
 
             // print moves
             foreach (Move<ILabel<SYMBOL>> move in moves)
